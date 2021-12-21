@@ -1,10 +1,12 @@
 package com.PracticeHardCode;
 
+
 import org.testng.annotations.Test;
 
 import com.GenericUtiles.BaseClass;
 import com.GenericUtiles.ExcelUtility;
 import com.GenericUtiles.JavaUtility;
+import com.GenericUtiles.WebDriverUtility;
 
 import POM.AddressPage;
 import POM.CreateAnAccountPage;
@@ -20,10 +22,19 @@ import POM.TShirtPage;
 public class TC_01 extends BaseClass{
 	@Test
 	public void tc_01() throws Throwable{
+		
+		
+		WebDriverUtility wlib = new WebDriverUtility();
+		wlib.maximiseWindow(driver);
+		wlib.waitUntilPageLoad(driver);
+		
+		
 		HomePage hp = new HomePage(driver);
 		hp.getDresses().click();
 
 		DressesPage dp = new  DressesPage(driver);
+		
+		dp.getDressesAddToCart();
 		dp.getDressesAddToCart().click();//on dresspage it will click on 2nd product addtocart
 		dp.getTShirts().click();//on dresspage it will click on tshirt link
 
@@ -37,6 +48,7 @@ public class TC_01 extends BaseClass{
 		summary.getProceedToCheckout().click();
 
 		SignInPage signIn = new SignInPage(driver);
+		//*******************************************CreateAnAccountPage****************************
 
 		ExcelUtility elib = new ExcelUtility();
 		JavaUtility jlib = new JavaUtility();
@@ -44,7 +56,7 @@ public class TC_01 extends BaseClass{
 		signIn.getEmailAdressTextBox(email);
 
 		signIn.getCreateAnAccount().click();
-		//*******************************************CreateAnAccountPage****************************
+		
 		CreateAnAccountPage creatAccount = new CreateAnAccountPage(driver);
 		String firstname = elib.getExcelData("Sheet1", 1, 3);
 		creatAccount.getFirstName(firstname);
